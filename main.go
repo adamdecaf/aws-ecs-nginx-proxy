@@ -1,27 +1,33 @@
 package main
 
 import (
-	"fmt"
-
-	"os/exec"
+	"log"
+	"github.com/adamdecaf/aws-ecs-nginx-proxy/ecs"
+	"github.com/adamdecaf/aws-ecs-nginx-proxy/nginx"
+	"github.com/adamdecaf/aws-ecs-nginx-proxy/scheduler"
 )
 
 func main() {
-	fmt.Println("Hi")
+	log.Println("spawning aws-ecs-nginx-proxy")
 
-	// todo
-	// spawn nginx, pass reference over to scheduler (reference has Reload() method on the type)
-	// spawn ecs poller, pass reference to scheduler (has Refresh() method on the type)
-	// spawn scheduler, is the brain of linking the two together
-
-
-	// just seeing if nginx is there
-	raw, err := exec.Command("cat", "/etc/nginx/nginx.conf").Output()
-	if err != nil {
-		fmt.Println("nginx not found")
-		return
+	nginx, err := nginx.New()
+	if nginx == nil || err != nil {
+		log.Printf("error spawning nginx err=%s\n", err)
 	}
 
-	s := string(raw)
-	fmt.Println(s)
+	log.Println(nginx)
+
+	ecs, err := ecs.NewClient()
+	if ecs == nil || err != nil {
+		log.Printf("error starting ecs client err=%s\n", err)
+	}
+
+	log.Println(ecs)
+
+	scheduler, err := scheduler.New(*nginx, *ecs)
+	if scheduler == nil || err != nil {
+		log.Printf("error starting scheduler err=%s\n", err)
+	}
+
+	scheduler.Run()
 }

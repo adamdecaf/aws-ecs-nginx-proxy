@@ -11,3 +11,12 @@ I really wanted a load balancer for multiple SSL certs and multiple groups of ap
 ### How?
 
 There's some go code that watches the ELB api for the tasks and services running on your cluster to (re-)configuring nginx (and reload) for all of your sites and services.
+
+### Usage
+
+Launch the docker image with the following environment variables:
+
+* `AWS_ACCESS_KEY_ID`: AWS IAM access key
+* `AWS_SECRET_ACCESS_KEY`: AWS IAM secret key
+* `AWS_REGION`: The aws region
+* `AWS_ECS_CLUSTER_NAME`: The ecs cluster name that the keys have access to.
