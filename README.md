@@ -4,7 +4,7 @@
 
 ### Why? / What?
 
-AWS Load Balancers (ELB's) are handy for certain workloads. However, they don't handle [multiple ssl certs per elb](https://forums.aws.amazon.com/message.jspa?messageID=520926) and they often have [startup time issues](https://aws.amazon.com/articles/1636185810492479) with low traffic / spikey traffic.
+AWS Load Balancers (ELB's) are handy for certain workloads. However, they don't handle [multiple ssl certs per elb](https://forums.aws.amazon.com/message.jspa?messageID=520926) and they often have [startup time issues](https://aws.amazon.com/articles/1636185810492479) with low traffic / spiky traffic.
 
 I really wanted a load balancer for multiple SSL certs and multiple groups of apps behind. Largely these apps are side projects and won't get any real traffic so spending the cost to maintain 10's of ELB's is wasteful.
 
